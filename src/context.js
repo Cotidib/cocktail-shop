@@ -1,14 +1,25 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { useCallback } from 'react'
+import React, { useState, useContext, useEffect, useReducer } from 'react';
+import { useCallback } from 'react';
+import reducer from './reducer';
 
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 const AppContext = React.createContext()
+
+const initialCartState = {
+  cart: [],
+  total: 0,
+  amount: 0,
+}
 
 const AppProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
+
+  // Cart ------------------------------------------------------
+  const [state, dispatch] = useReducer(reducer,initialCartState);
+  // -----------------------------------------------------------
 
   const openSidebar = () => {
     setIsSidebarOpen(true);
@@ -57,6 +68,26 @@ const AppProvider = ({ children }) => {
   //search marca Warning porque tiene una supuesta missing dependency fetchProducts, pero si yo agrego fetchProducts
   //al array, me quedaria un loop infinito -> para resolver el loop entonces voy a usar el useCallback
 
+  //Cart ------------------------------------------------
+  const add = (id,name,img,price,amount) => {
+    dispatch({type:'ADD', payload:{id,name,img,price,amount}})
+    dispatch({type:'GET_TOTALS'});
+  }
+
+  const remove = (id) => {
+    dispatch({type: 'REMOVE', payload:id})
+  }
+
+  const toggleAmount = (id,type) => {
+    dispatch({type:'TOGGLE_AMOUNT', payload:{id,type}})
+  }
+
+  useEffect(()=>{
+    dispatch({type:'GET_TOTALS'})
+  },[state.cart])
+  // ---------------------------------------------------
+
+
   return <AppContext.Provider 
     value={{
       isSidebarOpen,
@@ -65,6 +96,10 @@ const AppProvider = ({ children }) => {
       loading,
       setSearch,
       products,
+      ...state,
+      remove,
+      toggleAmount,
+      add,
     }}>{children}</AppContext.Provider>
 }
 

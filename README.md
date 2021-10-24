@@ -3,6 +3,7 @@ Practice project made with React Js and React Hooks
 
 ### To do:
 - notification modal when add to cart
+- filters
 - cart system!
 
 ### Resources

@@ -7,7 +7,7 @@ import { MdShoppingCart } from 'react-icons/md';
 import SearchForm from '../components/SearchForm'
 
 const Navbar = () => {
-  const{openSidebar} = useGlobalContext();
+  const{openSidebar,amount} = useGlobalContext();
 
   return (
     <nav className="navbar">
@@ -16,7 +16,7 @@ const Navbar = () => {
           <Link to="/"><span className="logo"><GiShop/></span></Link>
         </div> 
         <SearchForm/>
-        <Link to="/cart"><MdShoppingCart className='cart-icon'/></Link>
+        <div className='narv-cart'><Link to="/cart"><MdShoppingCart className='cart-icon'/></Link><span className='cart-counter'>{amount}</span></div>
     </nav>
   )
 }
