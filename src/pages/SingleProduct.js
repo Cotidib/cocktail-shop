@@ -7,6 +7,15 @@ const SingleProduct = () => {
   const {id} = useParams(); //gets the id that comes with the url (variable name setted in App)
   const [loading, setLoading] = React.useState(false);
   const [product, setProduct] = React.useState(null);
+  const [activeTab, setActiveTab] = React.useState(1);
+
+  const tabOne = () => {
+    setActiveTab(1);
+  }
+
+  const tabTwo = () => {
+    setActiveTab(2);
+  }
 
   React.useEffect(()=>{
     setLoading(true);
@@ -52,21 +61,29 @@ const SingleProduct = () => {
         <p>{category}</p>
         <h5>Glass:</h5>
         <p>{glass}</p>
-        <h5>Ingredients:</h5>
-        <ul>
-          {
-            ingredients.map((item,index)=>{
-              if(item) {
-                return <li key={index}>{item}</li>
-              } else {
-                return null;
-              }
-            
-            })
-          }
-        </ul>
-        <h5>Preparation:</h5>
-        <p>{prep}</p>
+        <div className='tabs-container'>
+          <div className='tabs-header'>
+            <h5 className={`tab ${activeTab===1? 'tab-active':null}`} onClick={tabOne}>Ingredients</h5>
+            <h5 className={`tab ${activeTab===2? 'tab-active':null}`} onClick={tabTwo}>Preparation</h5>
+          </div>
+          <div>
+            {
+              activeTab===1 && ingredients.map((item,index)=>{
+                if(item) {
+                  return <li key={index}>{item}</li>
+                } else {
+                  return null;
+                }
+              
+              })
+            }
+
+            {
+              activeTab===2 && <p className='prep-info'>{prep}</p>
+            }
+          </div>
+        </div>
+
       </div>
     </section>
   )

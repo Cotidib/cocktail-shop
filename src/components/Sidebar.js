@@ -4,6 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { AiOutlineShopping } from 'react-icons/ai';
 import {useGlobalContext} from '../context';
+import { GiShop } from 'react-icons/gi'
 
 const Sidebar = () => {
     const {isSidebarOpen,closeSidebar} = useGlobalContext();
@@ -11,7 +12,7 @@ const Sidebar = () => {
   return (
     <aside className={`sidebar ${isSidebarOpen? 'show-sidebar' : null}`}>
         <div className='side-header'>
-          <Link to="/"><span className="logo">logo</span></Link>
+          <Link to="/"><span className="logo"><GiShop/></span></Link>
           <button className='close-toggle' onClick={closeSidebar}><FaTimes/></button>
         </div> 
         <div className="sidebar-content">
