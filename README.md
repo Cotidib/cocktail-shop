@@ -2,9 +2,9 @@
 Practice project made with React Js and React Hooks
 
 ### To do:
-- notification modal when add to cart
+- notification modals
 - filters
-- cart system!
+- lazy loading or infinite scrolling
 
 ### Resources
 [TheCocktailDB](https://www.thecocktaildb.com/)

@@ -1,25 +1,23 @@
 import React from 'react'
 import { useGlobalContext } from '../context'
-import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+// import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+import { TiDeleteOutline } from 'react-icons/ti';
 
 function CartItem({ id, img, name, price, amount }) {
     const {remove, toggleAmount} = useGlobalContext();
 
     return (
         <article className='item-box'>
-            <div className='item-container'>
-                <img src={img} alt={name}/>
-                <div className='item-info-container'>
-                    <h4>{name}</h4>
-                    <p>$ {price}</p>
-                    <button onClick={() => remove(id)}>remove</button>
-                </div>
-            </div>
+            <img src={img} alt={name}/>
+            <h4>{name}</h4>
             <div className='item-amount-container'>
-                <button onClick={()=>toggleAmount(id,'increase')}><MdOutlineKeyboardArrowUp/></button>
+                <button className='amount-btn' onClick={()=>toggleAmount(id,'increase')}><FaPlus/></button>
                 <span className='item-amount'>{amount}</span>
-                <button onClick={()=>toggleAmount(id, 'decrease')}><MdOutlineKeyboardArrowDown/></button>
+                <button className='amount-btn' onClick={()=>toggleAmount(id, 'decrease')}><FaMinus/></button>
             </div>
+            <p>$ {price*amount}</p>
+            <button className='remove-btn' onClick={() => remove(id)}><TiDeleteOutline className='remove-icon'/></button>
         </article>
     )
 }
